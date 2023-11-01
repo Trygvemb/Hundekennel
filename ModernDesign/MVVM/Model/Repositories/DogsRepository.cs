@@ -228,39 +228,59 @@ namespace ModernDesign.MVVM.Model.Repositories
         // That allows this code to easily parse the file
         // 
         // This file could maybe have been created as a static class library
-        public static void AddDogFromFile(string filePath)
+        public void AddDogFromFile(string filePath)
         {
             // This file path is temporary and only works on my local machine.
             filePath = @"C:\Users\jacob\Downloads\HundeData.csv";
 
             try
             {
-                using (StreamReader sr = new StreamReader(filePath))
+                using (StreamReader streamReader = new StreamReader(filePath))
                 {
                     string? line;
 
                     // Ignore the first line
-                    line = sr.ReadLine();
+                    line = streamReader.ReadLine();
 
                     while (line != null)
                     {
-                        line = sr.ReadLine();
+                        line = streamReader.ReadLine();
 
-                        string[] words = line.Split(';');
+                        string[] values = line.Split(';');
 
-                        // Put all words into their own variable for ease of testing
-                        string pd = words[1];
+                        // Put all values into their own variable for ease of testing
+                        string pedigree = values[1];
 
                         // Check if dog with the same pedigree number already exists
+                        // My idea is: Check if a dog with the same pedigree number already exists
+                        // If it does, then skip the rest of the loop and start from the beginning again
+                        // If it doesn't, create a new Dog object and add it to the database
+                        
 
-                        string name = words[3];
-                        DateTime dob = DateTime.Parse(words[11]);
-                        string dad = words[5];
-                        string mom = words[6];
-                        string gender = words[18];
-                        bool isDead = bool.Parse(words[20]);
 
-                        Dog dog = new Dog(pd, name, dob, dad, mom, gender, isDead);
+                        string name = values[3];
+                        DateTime dob = DateTime.Parse(values[11]);
+                        string dad = values[5];
+                        string mom = values[6];
+                        string gender = values[18];
+                        bool isDead = bool.Parse(values[20]);
+                        // I couldn't find the chipNumber in the excel file
+                        //string? chipNumber;
+                        string dKKTitles = values[7];
+                        string titles = values[8];
+                        bool breedingStatus = bool.Parse(values[22]);
+                        bool mentalDescription = bool.Parse(values[23]);
+                        // Not sure how I create this type
+                        //byte[] picture;
+                        string hD = values[12];
+                        string aD = values[13];
+                        string hZ = values[14];
+                        string sP = values[15];
+                        string color = values[19];
+                        bool breedingApproval = bool.Parse(values[21]);
+
+                        // Need to add the rest of the variables
+                        Dog dog = new Dog(pedigree, name, dob, dad, mom, gender, isDead);
                     }
                 }
             }
