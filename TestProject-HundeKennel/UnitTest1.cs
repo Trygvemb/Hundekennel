@@ -76,5 +76,11 @@ namespace TestProject_HundeKennel
             Assert.AreEqual(updatedName, updatedDog.Name);
         }
 
+        [TestMethod]
+        public void ExcelDataUploaderTest()
+        {
+            ExcelDataUploader.UploadExcelFile(string.Empty);
+        }
+
     }
 }

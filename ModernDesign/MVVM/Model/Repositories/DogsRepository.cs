@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -219,6 +220,54 @@ namespace ModernDesign.MVVM.Model.Repositories
                 existingDog.Color = entity.Color;
                 existingDog.BreedingApproval = entity.BreedingApproval;
 
+            }
+        }
+
+        // IMPORTANT
+        // You have to save the file as CSV UTF-8 (Comma delimited) (*.csv)
+        // That allows this code to easily parse the file
+        // 
+        // This file could maybe have been created as a static class library
+        public static void AddDogFromFile(string filePath)
+        {
+            // This file path is temporary and only works on my local machine.
+            filePath = @"C:\Users\jacob\Downloads\HundeData.csv";
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    string? line;
+
+                    // Ignore the first line
+                    line = sr.ReadLine();
+
+                    while (line != null)
+                    {
+                        line = sr.ReadLine();
+
+                        string[] words = line.Split(';');
+
+                        // Put all words into their own variable for ease of testing
+                        string pd = words[1];
+
+                        // Check if dog with the same pedigree number already exists
+
+                        string name = words[3];
+                        DateTime dob = DateTime.Parse(words[11]);
+                        string dad = words[5];
+                        string mom = words[6];
+                        string gender = words[18];
+                        bool isDead = bool.Parse(words[20]);
+
+                        Dog dog = new Dog(pd, name, dob, dad, mom, gender, isDead);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(ex.Message);
             }
         }
     }
