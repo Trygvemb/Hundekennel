@@ -76,6 +76,5 @@ namespace TestProject_HundeKennel
             Assert.AreEqual(updatedName, updatedDog.Name);
         }
 
-
     }
 }
