@@ -254,7 +254,7 @@ namespace ModernDesign.MVVM.Model.Repositories
                         // Check if dog with the same pedigree number already exists
                         // My idea is: Check if a dog with the same pedigree number already exists
                         // If it does, then skip the rest of the loop and start from the beginning again
-                        // If it doesn't, create a new Dog object and add it to the database
+                        // If it doesn't, create a new Dog object and add it to the database using the AddDog method
                         
 
 
